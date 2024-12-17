@@ -1,0 +1,60 @@
+error shadowing can be a sneaky issue in Go (Golang) due to its handling of variable declarations in blocks. Error shadowing happens when an inner block redeclares a variable (especially errors) with the same name as an outer scope, making it hard to tell if you’re handling the intended error or not. This can lead to unexpected bugs and harder-to-read code.
+
+Why It Happens in Go
+In Go, the := syntax in a block will declare a new variable if it hasn't seen that identifier before within the block. Even if an error variable already exists in an outer scope, using := within a nested scope (like an if block) will create a new err variable in that block.
+
+Common Example of Error Shadowing
+Here's a basic example that demonstrates the problem:
+
+go
+Copy code
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func doSomething() error {
+	return errors.New("something went wrong")
+}
+
+func main() {
+	err := doSomething()
+	if err != nil {
+		fmt.Println("Error in main:", err)
+	}
+
+	// Error shadowing here!
+	if err := doSomething(); err != nil {
+		// This `err` shadows the outer `err`, so any logic after this
+		// block that checks `err` might get confusing results.
+		fmt.Println("Error in block:", err)
+	}
+
+	// `err` here is still the one from the first call to doSomething.
+	if err != nil {
+		fmt.Println("Error after block:", err)
+	}
+}
+In the code above, the err variable inside the if statement shadows the outer err. After the block, err still refers to the original one, so any updates inside the block don’t affect the original err. This can lead to unintended behavior, especially if you’re expecting err to always reflect the latest error.
+
+How to Avoid Error Shadowing
+Use different variable names: Use more specific names for inner errors to avoid confusion.
+
+go
+Copy code
+outerErr := doSomething()
+if outerErr != nil {
+    fmt.Println("Error in main:", outerErr)
+}
+
+innerErr := doSomething() // Avoid shadowing by using `innerErr` instead
+if innerErr != nil {
+    fmt.Println("Error in block:", innerErr)
+}
+Avoid redeclaring errors inside nested blocks: Instead of redeclaring, use simple assignment (=) if the outer error needs updating. But remember, you may need an outer block for this to work.
+
+Static analysis tools: Use Go static analysis tools like staticcheck, which can detect error shadowing and warn you during development.
+
+By being careful and following these patterns, you can prevent error shadowing and make error handling in your Go code clearer and more predictable.
