@@ -1,5 +1,7 @@
-4 days ago
 hashtag#QuizThursday: Concurrency Gotchas in Go 👨‍💻🐹
+
+![concurrency](https://github.com/myrachanto/senior/blob/master/concurrency/Designer(1).png "concurrency")
+
 
 Hello, everyone! 🤗 Let's dive into common concurrency pitfalls in Go and how to handle them.
 

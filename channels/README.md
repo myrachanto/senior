@@ -1,5 +1,6 @@
 When to use buffered and unbuffered channels in Golang
 
+![channels](https://github.com/myrachanto/senior/blob/master/channels/Screenshot%202024-12-10%20at%2005.16.29.png "Channels")
 
 Hi everyone 🤗 , counting the days to Christmas and to prosperous ano nuevo!
 
