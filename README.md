@@ -33,7 +33,6 @@ they include
 
 9. [pingpong game](https://github.com/myrachanto/senior/tree/master/pingpong)
 
-
-I have decided to file them into one repository https://github.com/myrachanto/senior with readme to go with them
+![concurrency](https://github.com/myrachanto/senior/blob/master/concurrency/Designer(1).png "concurrency")
 
 #go #golang #golangtips #seniorgolang #backend 
